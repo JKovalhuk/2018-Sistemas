@@ -1,0 +1,13 @@
+#!/bin/sh
+
+echo "Insira o primeiro numero: "
+read num1
+echo "Insira o primeiro numero: "
+read num2
+if [ $num1 -gt $num2 ]
+	then echo "$num1 é maior que $num2"
+elif [ $num1 -lt $num2 ]
+	then echo "$num1 é menor que $num2"
+else echo "$num1 é igual a $num2"
+fi
+exit 0

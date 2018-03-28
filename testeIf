@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "Is it morning? Yes or No"
+read timeofday
+
+if [ "$timeofday" = "yes" ]; then
+	echo "Good morning"
+elif [ "$timeofday" = "no" ]; then
+	echo "Good afternoon"
+
+elif [ "$timeofday" = "" ]; then
+	echo "Me responda >:("
+	exit 1
+else
+	echo "Nao entendi o que você quis dizer por $timeofday"
+	exit 1
+fi
+
+exit 0

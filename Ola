@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "Olá, qual seu nome?"
+echo $myvar
+read nome
+echo "Oi, " $nome
+exit 0
