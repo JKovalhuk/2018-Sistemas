@@ -1,0 +1,145 @@
+#!/bin/sh
+
+menu() {
+	echo ".==================================================================."
+	echo "|                                                                  |"
+	echo "|               TRABALHO DE SISTEMAS OPERACIONAIS                  |"
+	echo "|                 EDUARDO SOARES & MATHEUS GOMES                   |"
+	echo "|                                                                  |"
+	echo "|  Digite o número correspondente à sua opção:                     |"
+	echo "|                                                                  |"
+	echo "|      1  - MAN                                                    |"
+	echo "|      2  - LS                                                     |"
+	echo "|      3  - PWD                                                    |"
+	echo "|      4  - MKDIR                                                  |"
+	echo "|      5  - CD                                                     |"
+	echo "|      6  - CP                                                     |"
+	echo "|      7  - MV                                                     |"
+	echo "|      8  - RM                                                     |"
+	echo "|      9  - RMDIR                                                  |"
+	echo "|      10 - MORE                                                   |"
+	echo "|      11 - CAT                                                    |"
+	echo "|      12 - TAIL                                                   |"
+	echo "|      13 - ECHO                                                   |"
+	echo "|      14 - WHOAMI                                                 |"
+	echo "|      15 - PS                                                     |"
+	echo "|      16 - GREP                                                   |"
+	echo "|      17 - WC                                                     |"
+	echo "|                                                                  |"
+	echo "|      0 - EXIT                                                    |"
+	echo "|                                                                  |"
+	echo "|                                                                  |"
+	echo ".==================================================================."
+
+	read opcao
+	case "$opcao" in
+		"0" ) exit 0;;
+		"1" ) opc_man;;
+		"2" ) opc_ls;;
+		"3" ) opc_pwd;;
+		"4" ) opc_mkdir;;
+		"5" ) opc_cd;;
+		"6" ) opc_cp;;
+		"7" ) opc_mv;;
+		"8" ) opc_rm;;
+		"9" ) opc_rmdir;;
+		"10" ) opc_more;;
+		"11" ) opc_cat;;
+		"12" ) opc_tail;;
+		"13" ) opc_echo;;
+		"14" ) opc_whoami;;
+		"15" ) opc_ps;;
+		"16" ) opc_grep;;
+		"17" ) opc_wc;;
+
+		* ) tryagain;;
+	esac 
+
+}
+
+opc_man(){
+	
+}
+
+opc_ls(){
+	
+}
+
+opc_pwd(){
+	
+}
+
+
+opc_mkdir(){
+	
+}
+
+
+opc_cd(){
+	
+}
+
+
+opc_cp(){
+	
+}
+
+
+opc_mv(){
+	
+}
+
+
+opc_rm(){
+	
+}
+
+
+opc_rmdir(){
+	
+}
+
+
+opc_more(){
+	
+}
+
+
+opc_cat(){
+	
+}
+
+
+opc_tail(){
+	
+}
+
+
+opc_echo(){
+	
+}
+
+
+opc_whoami(){
+	
+}
+
+
+opc_ps(){
+	
+}
+
+
+opc_grep(){
+	
+}
+
+
+opc_wc(){
+	
+}
+
+tryagain() {
+	echo "Opção não reconhecida. Tente novamente"
+	menu
+}
