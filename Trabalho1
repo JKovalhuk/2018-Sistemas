@@ -31,7 +31,7 @@ menu() {
 	echo "|                                                                  |"
 	echo ".==================================================================."
 
-	read opcao
+	read opcao 
 	case "$opcao" in
 		"0" ) exit 0;;
 		"1" ) opc_man;;
@@ -53,8 +53,7 @@ menu() {
 		"17" ) opc_wc;;
 
 		* ) tryagain;;
-	esac 
-
+	esac
 }
 
 opc_man(){
@@ -66,12 +65,18 @@ opc_ls(){
 }
 
 opc_pwd(){
-	
+	echo "Nome do diretório atual:"
+	pwd
+	menu
 }
 
 
 opc_mkdir(){
-	
+	echo "Insira o nome da nova pasta: "
+	read nomemkdir
+	mkdir $nomemkdir
+	echo "Diretório criado."
+	menu
 }
 
 
