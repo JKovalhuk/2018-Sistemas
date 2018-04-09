@@ -1,73 +1,31 @@
 #!/bin/sh
 
-menu() {
-	echo ".==================================================================."
-	echo "|                                                                  |"
-	echo "|               TRABALHO DE SISTEMAS OPERACIONAIS                  |"
-	echo "|                 EDUARDO SOARES & MATHEUS GOMES                   |"
-	echo "|                                                                  |"
-	echo "|  Digite o número correspondente à sua opção:                     |"
-	echo "|                                                                  |"
-	echo "|      1  - MAN                                                    |"
-	echo "|      2  - LS                                                     |"
-	echo "|      3  - PWD                                                    |"
-	echo "|      4  - MKDIR                                                  |"
-	echo "|      5  - CD                                                     |"
-	echo "|      6  - CP                                                     |"
-	echo "|      7  - MV                                                     |"
-	echo "|      8  - RM                                                     |"
-	echo "|      9  - RMDIR                                                  |"
-	echo "|      10 - MORE                                                   |"
-	echo "|      11 - CAT                                                    |"
-	echo "|      12 - TAIL                                                   |"
-	echo "|      13 - ECHO                                                   |"
-	echo "|      14 - WHOAMI                                                 |"
-	echo "|      15 - PS                                                     |"
-	echo "|      16 - GREP                                                   |"
-	echo "|      17 - WC                                                     |"
-	echo "|                                                                  |"
-	echo "|      0 - EXIT                                                    |"
-	echo "|                                                                  |"
-	echo "|                                                                  |"
-	echo ".==================================================================."
+menu
 
-	read opcao 
-	case "$opcao" in
-		"0" ) exit 0;;
-		"1" ) opc_man;;
-		"2" ) opc_ls;;
-		"3" ) opc_pwd;;
-		"4" ) opc_mkdir;;
-		"5" ) opc_cd;;
-		"6" ) opc_cp;;
-		"7" ) opc_mv;;
-		"8" ) opc_rm;;
-		"9" ) opc_rmdir;;
-		"10" ) opc_more;;
-		"11" ) opc_cat;;
-		"12" ) opc_tail;;
-		"13" ) opc_echo;;
-		"14" ) opc_whoami;;
-		"15" ) opc_ps;;
-		"16" ) opc_grep;;
-		"17" ) opc_wc;;
-
-		* ) tryagain;;
-	esac
+tryagain() {
+	echo "Opção não reconhecida. Tente novamente."
 }
 
 opc_man(){
-	
+	echo "Qual comando você deseja conhecer?"
+	read comando
+	man $comando
 }
 
 opc_ls(){
-	
+	echo "Deseja adicionar algum parâmetro? (Y/N)"
+	read resp
+
+	case "$resp" in
+		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) read paramls; ls $paramls;;
+		n | N* ) ls;;
+		* ) tryagain;; 
+	esac 
 }
 
 opc_pwd(){
 	echo "Nome do diretório atual:"
 	pwd
-	menu
 }
 
 
@@ -76,7 +34,6 @@ opc_mkdir(){
 	read nomemkdir
 	mkdir $nomemkdir
 	echo "Diretório criado."
-	menu
 }
 
 
@@ -86,22 +43,39 @@ opc_cd(){
 
 
 opc_cp(){
-	
+	echo "Insira o nome do arquivo original a ser copiado: "
+	read nmorig
+	echo "Insira o nome da cópia: "
+	read nmcp
+	cp $nmorig $nmcp
 }
 
-
 opc_mv(){
-	
+	echo "Você deseja mover ou renomear o arquivo? (1/2)"
+	echo " "
+	echo "1 - Mover"
+	echo "2 - Renomear"
+	echo " "
+	read opcmv
+	case $opcmv in
+		"1" ) echo "Insira o nome do arquivo a ser movido: "; read nmarqmv; echo "Insira o nome do destino abaixo. Atenção: se o diretório for um arquivo, este arquivo será sobreposto. "; read nmdir; mv $nmarqmv $nmdir;
+		"2" ) echo "Insira o nome do arquivo a ser renomeado: "; read vlnomemv; echo "Insira o novo nome do arquivo: "; read nvnomemv; mv $vlnomemv $nvnomemv;
+		* ) tryagain;;
+	esac
 }
 
 
 opc_rm(){
-	
+	echo "Insira o nome do arquivo que você deseja apagar: "
+	read nomerm
+	rm $nomerm
 }
 
 
 opc_rmdir(){
-	
+	echo "Insira o nome do diretório que você deseja apagar: "
+	read nomedirrm
+	rmdir $nomedirrm
 }
 
 
@@ -136,7 +110,17 @@ opc_ps(){
 
 
 opc_grep(){
-	
+	echo "Digite a string que você quer encontrar:"
+	read stringgrep
+	echo "Digite o nome do arquivo ou diretório em que você quer encontrar a string (Use '*' para procurar em todo o diretório atual):"
+	read fontegrep
+	echo "Deseja buscar nos subdiretórios também? (y/n)"
+	read subtbm
+	case "$subtbm" in
+		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) grep -r $string $fontegrep;;
+		n | N* ) grep $string $fontegrep;;
+		* ) tryagain;; 
+	esac
 }
 
 
@@ -144,7 +128,57 @@ opc_wc(){
 	
 }
 
-tryagain() {
-	echo "Opção não reconhecida. Tente novamente"
-	menu
+menu() {
+	echo ".==================================================================."
+	echo "|                                                                  |"
+	echo "|               TRABALHO DE SISTEMAS OPERACIONAIS                  |"
+	echo "|                 EDUARDO SOARES & MATHEUS GOMES                   |"
+	echo "|                                                                  |"
+	echo "|  Digite o número correspondente à sua opção:                     |"
+	echo "|                                                                  |"
+	echo "|      1  - MAN                                                    |"
+	echo "|      2  - LS                                                     |"
+	echo "|      3  - PWD                                                    |"
+	echo "|      4  - MKDIR                                                  |"
+	echo "|      5  - CD                                                     |"
+	echo "|      6  - CP                                                     |"
+	echo "|      7  - MV                                                     |"
+	echo "|      8  - RM                                                     |"
+	echo "|      9  - RMDIR                                                  |"
+	echo "|      10 - MORE                                                   |"
+	echo "|      11 - CAT                                                    |"
+	echo "|      12 - TAIL                                                   |"
+	echo "|      13 - ECHO                                                   |"
+	echo "|      14 - WHOAMI                                                 |"
+	echo "|      15 - PS                                                     |"
+	echo "|      16 - GREP                                                   |"
+	echo "|      17 - WC                                                     |"
+	echo "|                                                                  |"
+	echo "|      0 - EXIT                                                    |"
+	echo "|                                                                  |"
+	echo ".==================================================================."
+
+	read opcao 
+	case "$opcao" in
+		"0" ) exit 0;;
+		"1" ) opc_man; menu;;
+		"2" ) opc_ls; menu;;
+		"3" ) opc_pwd; menu;;
+		"4" ) opc_mkdir; menu;;
+		"5" ) opc_cd; menu;;
+		"6" ) opc_cp; menu;;
+		"7" ) opc_mv; menu;;
+		"8" ) opc_rm; menu;;
+		"9" ) opc_rmdir; menu;;
+		"10" ) opc_more; menu;;
+		"11" ) opc_cat; menu;;
+		"12" ) opc_tail; menu;;
+		"13" ) opc_echo; menu;;
+		"14" ) opc_whoami; menu;;
+		"15" ) opc_ps; menu;;
+		"16" ) opc_grep; menu;;
+		"17" ) opc_wc; menu;;
+
+		* ) tryagain; menu;;
+	esac
 }
