@@ -1,7 +1,5 @@
 #!/bin/sh
 
-menu
-
 tryagain() {
 	echo "Opção não reconhecida. Tente novamente."
 }
@@ -19,8 +17,8 @@ opc_ls(){
 	case "$resp" in
 		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) read paramls; ls $paramls;;
 		n | N* ) ls;;
-		* ) tryagain;; 
-	esac 
+		* ) tryagain;;
+	esac
 }
 
 opc_pwd(){
@@ -38,7 +36,7 @@ opc_mkdir(){
 
 
 opc_cd(){
-	
+	echo oi
 }
 
 
@@ -58,8 +56,8 @@ opc_mv(){
 	echo " "
 	read opcmv
 	case $opcmv in
-		"1" ) echo "Insira o nome do arquivo a ser movido: "; read nmarqmv; echo "Insira o nome do destino abaixo. Atenção: se o diretório for um arquivo, este arquivo será sobreposto. "; read nmdir; mv $nmarqmv $nmdir;
-		"2" ) echo "Insira o nome do arquivo a ser renomeado: "; read vlnomemv; echo "Insira o novo nome do arquivo: "; read nvnomemv; mv $vlnomemv $nvnomemv;
+		"1" ) echo "Insira o nome do arquivo a ser movido: "; read nmarqmv; echo "Insira o nome do destino abaixo. Atenção: se o diretório for um arquivo, este arquivo será sobreposto. "; read nmdir; mv $nmarqmv $nmdir;;
+		"2" ) echo "Insira o nome do arquivo a ser renomeado: "; read vlnomemv; echo "Insira o novo nome do arquivo: "; read nvnomemv; mv $vlnomemv $nvnomemv;;
 		* ) tryagain;;
 	esac
 }
@@ -80,32 +78,32 @@ opc_rmdir(){
 
 
 opc_more(){
-	
+	echo
 }
 
 
 opc_cat(){
-	
+	echo
 }
 
 
 opc_tail(){
-	
+	echo
 }
 
 
 opc_echo(){
-	
+	echo
 }
 
 
 opc_whoami(){
-	
+	echo
 }
 
 
 opc_ps(){
-	
+	echo
 }
 
 
@@ -119,13 +117,13 @@ opc_grep(){
 	case "$subtbm" in
 		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) grep -r $string $fontegrep;;
 		n | N* ) grep $string $fontegrep;;
-		* ) tryagain;; 
+		* ) tryagain;;
 	esac
 }
 
 
 opc_wc(){
-	
+	echo
 }
 
 menu() {
@@ -158,7 +156,7 @@ menu() {
 	echo "|                                                                  |"
 	echo ".==================================================================."
 
-	read opcao 
+	read opcao
 	case "$opcao" in
 		"0" ) exit 0;;
 		"1" ) opc_man; menu;;
@@ -182,3 +180,5 @@ menu() {
 		* ) tryagain; menu;;
 	esac
 }
+
+menu
