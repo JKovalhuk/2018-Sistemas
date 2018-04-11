@@ -4,10 +4,23 @@ tryagain() {
 	echo "Opção não reconhecida. Tente novamente."
 }
 
+continuar() {
+	echo
+	echo "Pressione qualquer tecla para continuar..."
+	read a
+	echo
+}
+
 opc_man(){
 	echo "Qual comando você deseja conhecer?"
 	read comando
-	man $comando
+
+	man $comando 2>> log.txt
+
+	if [ "$?" -ne 0 ]; then
+		echo "O comando $comando não existe!"
+	fi
+
 }
 
 opc_ls(){
@@ -15,8 +28,8 @@ opc_ls(){
 	read resp
 
 	case "$resp" in
-		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) read paramls; ls $paramls;;
-		n | N* ) ls;;
+		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) echo "Digite os parâmetros: "; read paramls; ls "-""$paramls";;
+		no | n | N | No | NO | nO ) ls;;
 		* ) tryagain;;
 	esac
 }
@@ -28,6 +41,7 @@ opc_pwd(){
 
 
 opc_mkdir(){
+	echo "Deseja "
 	echo "Insira o nome da nova pasta: "
 	read nomemkdir
 	mkdir $nomemkdir
@@ -36,7 +50,7 @@ opc_mkdir(){
 
 
 opc_cd(){
-	echo oi
+	echo 
 }
 
 
@@ -93,7 +107,9 @@ opc_tail(){
 
 
 opc_echo(){
-	echo
+	echo "Que frase você quer repetir?"
+	read frase
+	echo "$frase"
 }
 
 
@@ -116,7 +132,7 @@ opc_grep(){
 	read subtbm
 	case "$subtbm" in
 		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) grep -r $string $fontegrep;;
-		n | N* ) grep $string $fontegrep;;
+		no | n | N | No | NO | nO ) grep $string $fontegrep;;
 		* ) tryagain;;
 	esac
 }
@@ -127,55 +143,42 @@ opc_wc(){
 }
 
 menu() {
-	echo ".==================================================================."
-	echo "|                                                                  |"
-	echo "|               TRABALHO DE SISTEMAS OPERACIONAIS                  |"
-	echo "|                 EDUARDO SOARES & MATHEUS GOMES                   |"
-	echo "|                                                                  |"
-	echo "|  Digite o número correspondente à sua opção:                     |"
-	echo "|                                                                  |"
-	echo "|      1  - MAN                                                    |"
-	echo "|      2  - LS                                                     |"
-	echo "|      3  - PWD                                                    |"
-	echo "|      4  - MKDIR                                                  |"
-	echo "|      5  - CD                                                     |"
-	echo "|      6  - CP                                                     |"
-	echo "|      7  - MV                                                     |"
-	echo "|      8  - RM                                                     |"
-	echo "|      9  - RMDIR                                                  |"
-	echo "|      10 - MORE                                                   |"
-	echo "|      11 - CAT                                                    |"
-	echo "|      12 - TAIL                                                   |"
-	echo "|      13 - ECHO                                                   |"
-	echo "|      14 - WHOAMI                                                 |"
-	echo "|      15 - PS                                                     |"
-	echo "|      16 - GREP                                                   |"
-	echo "|      17 - WC                                                     |"
-	echo "|                                                                  |"
-	echo "|      0 - EXIT                                                    |"
-	echo "|                                                                  |"
-	echo ".==================================================================."
-
-	read opcao
+	echo
+	echo ".=================================================================."
+	echo "|                                                                 |"
+	echo "|               TRABALHO DE SISTEMAS OPERACIONAIS                 |"
+	echo "|                 EDUARDO SOARES & MATHEUS GOMES                  |"
+	echo "|                                                                 |"
+	echo "|           Digite o número correspondente à sua opção:           |"
+	echo "|                                                                 |"
+	echo "|     1  - MAN       6  - CP        11 - CAT        16 - GREP     |"
+	echo "|     2  - LS        7  - MV        12 - TAIL       17 - WC       |"
+	echo "|     3  - PWD       8  - RM        13 - ECHO                     |"
+	echo "|     4  - MKDIR     9  - RMDIR     14 - WHOAMI                   |"
+	echo "|     5  - CD        10 - MORE      15 - PS         0 - EXIT      |"
+	echo "|                                                                 |"
+	echo ".=================================================================."
+	echo
+  read opcao
 	case "$opcao" in
 		"0" ) exit 0;;
-		"1" ) opc_man; menu;;
-		"2" ) opc_ls; menu;;
-		"3" ) opc_pwd; menu;;
-		"4" ) opc_mkdir; menu;;
-		"5" ) opc_cd; menu;;
-		"6" ) opc_cp; menu;;
-		"7" ) opc_mv; menu;;
-		"8" ) opc_rm; menu;;
-		"9" ) opc_rmdir; menu;;
-		"10" ) opc_more; menu;;
-		"11" ) opc_cat; menu;;
-		"12" ) opc_tail; menu;;
-		"13" ) opc_echo; menu;;
-		"14" ) opc_whoami; menu;;
-		"15" ) opc_ps; menu;;
-		"16" ) opc_grep; menu;;
-		"17" ) opc_wc; menu;;
+		"1" ) opc_man; continuar; menu;;
+		"2" ) opc_ls; continuar; menu;;
+		"3" ) opc_pwd; continuar; menu;;
+		"4" ) opc_mkdir; continuar; menu;;
+		"5" ) opc_cd; continuar; menu;;
+		"6" ) opc_cp; continuar; menu;;
+		"7" ) opc_mv; continuar; menu;;
+		"8" ) opc_rm; continuar; menu;;
+		"9" ) opc_rmdir; continuar; menu;;
+		"10" ) opc_more; continuar; menu;;
+		"11" ) opc_cat; continuar; menu;;
+		"12" ) opc_tail; continuar; menu;;
+		"13" ) opc_echo; continuar; menu;;
+		"14" ) opc_whoami; continuar; menu;;
+		"15" ) opc_ps; continuar; menu;;
+		"16" ) opc_grep; continuar; menu;;
+		"17" ) opc_wc; continuar; menu;;
 
 		* ) tryagain; menu;;
 	esac
