@@ -1,0 +1,187 @@
+#!/bin/sh
+
+tryagain() {
+	echo "Opção não reconhecida. Tente novamente."
+}
+
+continuar() {
+	echo
+	echo "Pressione qualquer tecla para continuar..."
+	read a
+	echo
+}
+
+opc_man(){
+	echo "Qual comando você deseja conhecer?"
+	read comando
+
+	man $comando 2>> log.txt
+
+	if [ "$?" -ne 0 ]; then
+		echo "O comando $comando não existe!"
+	fi
+
+}
+
+opc_ls(){
+	echo "Deseja adicionar algum parâmetro? (Y/N)"
+	read resp
+
+	case "$resp" in
+		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) echo "Digite os parâmetros: "; read paramls; ls "-""$paramls";;
+		no | n | N | No | NO | nO ) ls;;
+		* ) tryagain;;
+	esac
+}
+
+opc_pwd(){
+	echo "Nome do diretório atual:"
+	pwd
+}
+
+
+opc_mkdir(){
+	echo "Deseja "
+	echo "Insira o nome da nova pasta: "
+	read nomemkdir
+	mkdir $nomemkdir
+	echo "Diretório criado."
+}
+
+
+opc_cd(){
+	echo oi
+}
+
+
+opc_cp(){
+	echo "Insira o nome do arquivo original a ser copiado: "
+	read nmorig
+	echo "Insira o nome da cópia: "
+	read nmcp
+	cp $nmorig $nmcp
+}
+
+opc_mv(){
+	echo "Você deseja mover ou renomear o arquivo? (1/2)"
+	echo " "
+	echo "1 - Mover"
+	echo "2 - Renomear"
+	echo " "
+	read opcmv
+	case $opcmv in
+		"1" ) echo "Insira o nome do arquivo a ser movido: "; read nmarqmv; echo "Insira o nome do destino abaixo. Atenção: se o diretório for um arquivo, este arquivo será sobreposto. "; read nmdir; mv $nmarqmv $nmdir;;
+		"2" ) echo "Insira o nome do arquivo a ser renomeado: "; read vlnomemv; echo "Insira o novo nome do arquivo: "; read nvnomemv; mv $vlnomemv $nvnomemv;;
+		* ) tryagain;;
+	esac
+}
+
+
+opc_rm(){
+	echo "Insira o nome do arquivo que você deseja apagar: "
+	read nomerm
+	rm $nomerm
+}
+
+
+opc_rmdir(){
+	echo "Insira o nome do diretório que você deseja apagar: "
+	read nomedirrm
+	rmdir $nomedirrm
+}
+
+
+opc_more(){
+	echo
+}
+
+
+opc_cat(){
+	echo
+}
+
+
+opc_tail(){
+	echo
+}
+
+
+opc_echo(){
+	echo "Que frase você quer repetir?"
+	read frase
+	echo "$frase"
+}
+
+
+opc_whoami(){
+	echo
+}
+
+
+opc_ps(){
+	echo
+}
+
+
+opc_grep(){
+	echo "Digite a string que você quer encontrar:"
+	read stringgrep
+	echo "Digite o nome do arquivo ou diretório em que você quer encontrar a string (Use '*' para procurar em todo o diretório atual):"
+	read fontegrep
+	echo "Deseja buscar nos subdiretórios também? (y/n)"
+	read subtbm
+	case "$subtbm" in
+		yes | y | Y | Yes | YES | YEs | yES | yeS | yEs | YeS ) grep -r $string $fontegrep;;
+		no | n | N | No | NO | nO ) grep $string $fontegrep;;
+		* ) tryagain;;
+	esac
+}
+
+
+opc_wc(){
+	echo
+}
+
+menu() {
+	echo
+	echo ".=================================================================."
+	echo "|                                                                 |"
+	echo "|               TRABALHO DE SISTEMAS OPERACIONAIS                 |"
+	echo "|                 EDUARDO SOARES & MATHEUS GOMES                  |"
+	echo "|                                                                 |"
+	echo "|           Digite o número correspondente à sua opção:           |"
+	echo "|                                                                 |"
+	echo "|     1  - MAN       6  - CP        11 - CAT        16 - GREP     |"
+	echo "|     2  - LS        7  - MV        12 - TAIL       17 - WC       |"
+	echo "|     3  - PWD       8  - RM        13 - ECHO                     |"
+	echo "|     4  - MKDIR     9  - RMDIR     14 - WHOAMI                   |"
+	echo "|     5  - CD        10 - MORE      15 - PS         0 - EXIT      |"
+	echo "|                                                                 |"
+	echo ".=================================================================."
+	echo
+  read opcao
+	case "$opcao" in
+		"0" ) exit 0;;
+		"1" ) opc_man; continuar; menu;;
+		"2" ) opc_ls; continuar; menu;;
+		"3" ) opc_pwd; continuar; menu;;
+		"4" ) opc_mkdir; continuar; menu;;
+		"5" ) opc_cd; continuar; menu;;
+		"6" ) opc_cp; continuar; menu;;
+		"7" ) opc_mv; continuar; menu;;
+		"8" ) opc_rm; continuar; menu;;
+		"9" ) opc_rmdir; continuar; menu;;
+		"10" ) opc_more; continuar; menu;;
+		"11" ) opc_cat; continuar; menu;;
+		"12" ) opc_tail; continuar; menu;;
+		"13" ) opc_echo; continuar; menu;;
+		"14" ) opc_whoami; continuar; menu;;
+		"15" ) opc_ps; continuar; menu;;
+		"16" ) opc_grep; continuar; menu;;
+		"17" ) opc_wc; continuar; menu;;
+
+		* ) tryagain; menu;;
+	esac
+}
+
+menu
